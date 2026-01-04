@@ -1,0 +1,28 @@
+<div class="auth-box">
+    <h2>Xác thực</h2>
+
+    <div class="tabs">
+        <a href="#" onclick="showForm('login')">Đăng nhập</a>
+        <a href="#" onclick="showForm('register')">Đăng ký</a>
+        <a href="#" onclick="showForm('forgot')">Quên MK</a>
+    </div>
+
+    <form id="login" class="form">
+        <input type="text" placeholder="Tên đăng nhập" required>
+        <input type="password" placeholder="Mật khẩu" required>
+        <button>Đăng nhập</button>
+    </form>
+
+    <form id="register" class="form">
+        <input type="text" placeholder="Tên đăng nhập" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Mật khẩu" required>
+        <input type="password" placeholder="Nhập lại mật khẩu" required>
+        <button>Đăng ký</button>
+    </form>
+
+    <form id="forgot" class="form">
+        <input type="email" placeholder="Email đã đăng ký" required>
+        <button>Gửi yêu cầu</button>
+    </form>
+</div>
