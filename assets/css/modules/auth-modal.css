@@ -1,0 +1,64 @@
+body {
+    font-family: Arial;
+    background-color: #eaeaea;
+}
+
+.auth-box {
+    width: 500px;
+    background: #ccc;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    margin: 100px auto;
+}
+
+.auth-box {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.tabs a {
+    padding: 6px 10px;
+    background: #ddd;
+    border: 1px solid #aaa;
+    text-decoration: none;
+    color: black;
+}
+
+.tabs a:hover {
+    background: #ccc;
+}
+
+
+.form {
+    display: none;
+    margin-top: 10px;
+}
+
+input {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #aaa;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: blue;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background: darkblue;
+}
+input {
+    margin-bottom: 8px;
+}
+.tabs a {
+    margin: 3px;
+    display: inline-block;
+}
