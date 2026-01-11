@@ -1,4 +1,4 @@
-
+import { renderNav } from "./modules/nav.js";
 const vietnamnetFeeds = [
     {
         nid: "ds",
@@ -41,6 +41,16 @@ const vietnamnetFeeds = [
         url:"https://infonet.vietnamnet.vn/rss/quan-su.rss"
     }
 ];
+includeHTML('header-id', 'templates/header.html', function () {
+    document
+        .getElementById("btn-login")
+        .addEventListener("click", openAuth);
+});
+
+includeHTML('footer-id', 'templates/footer.html');
+includeHTML('nav-id', 'templates/nav.html', function () {
+    renderNav(vietnamnetFeeds);
+});
 
 function formatDate(dateString) {
     const date = new Date(dateString);
