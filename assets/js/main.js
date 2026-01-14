@@ -59,13 +59,15 @@ function formatDate(dateString) {
     return timePart + " " + datePart;
 }
 
-function createArticleHtml(item) {
-    const imageUrl = item.enclosure.link || 'https://via.placeholder.com/150';
-    const formattedDate = formatDate(item.pubDate);
+function createArticleHtml(item, rssUrl, index) {
+    var imageUrl = item.enclosure?.link || 'https://via.placeholder.com/150';
+    var formattedDate = formatDate(item.pubDate);
+
+    var detailLink = `article-detail.html?rss=${encodeURIComponent(rssUrl)}&id=${index}`;
 
     return `
         <li class="news-item">
-            <a href="${item.link}" target="_blank"> 
+            <a href="${detailLink}" class="news-link">
                 <img src="${imageUrl}" alt="${item.title}" class="news-thumb">
                 <div class="news-info">
                     <h3>${item.title}</h3>
@@ -76,13 +78,13 @@ function createArticleHtml(item) {
     `;
 }
 
-function createCategoryHtml(category, articles) {
+function createCategoryHtml(category, articles, rssUrl) {
     let htmlContent = `<h2 class="category-title">${category}</h2>`;
     htmlContent += '<ul class="news-list">';
 
     if (articles && articles.length > 0) {
-        articles.slice(0, 6).forEach(function(item) {
-            htmlContent += createArticleHtml(item);
+        articles.slice(0, 6).forEach(function(item, index) {
+            htmlContent += createArticleHtml(item, rssUrl, index);
         });
     } else {
         htmlContent += '<li>Không có bài viết nào để hiển thị.</li>';
@@ -95,23 +97,16 @@ function createCategoryHtml(category, articles) {
 function fetchAndRender(url, nid, category) {
     const proxyUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(url);
     const container = document.getElementById(nid);
-    container.innerHTML = `<h2 class="category-title">${category}</h2><p class="loading-msg">Đang tải dữ liệu...</p>`;
 
     fetch(proxyUrl)
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error("Lỗi HTTP! Trạng thái: " + response.status);
-            }
-            return response.json();
-        })
-        .then(function(data) {
-            const articles = data.items;
-            const finalHtml = createCategoryHtml(category, articles);
+        .then(res => res.json())
+        .then(data => {
+            const finalHtml = createCategoryHtml(category, data.items, url);
             container.innerHTML = finalHtml;
         })
-        .catch(function(error) {
-            console.error("Lỗi khi tải dữ liệu cho " + category + ":", error);
-            container.innerHTML = `<h2 class="category-title">${category}</h2><p class="error-msg">Không thể tải dữ liệu.</p>`;
+        .catch(err => {
+            console.error(err);
+            container.innerHTML = `<p>Lỗi tải dữ liệu.</p>`;
         });
 }
 document.addEventListener('DOMContentLoaded', function() {
