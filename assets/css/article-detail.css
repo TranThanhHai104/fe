@@ -1,26 +1,29 @@
-.article-container{
+.article-container {
     max-width: 800px;
     margin: 40px auto;
+    color: var(--text-main);
 }
 
-.thumb{
+.thumb {
     width: 100%;
     margin: 15px 0;
     border-radius: 8px;
+    background: var(--input-bg);
 }
 
-.date{
-    color:#777;
-    font-size:14px;
+.date {
+    color: var(--text-sub);
+    font-size: 14px;
 }
 
-.content img{
-    max-width:100%;
+.content img {
+    max-width: 100%;
 }
+
 .full-article-content {
     line-height: 1.8;
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-main);
 }
 
 .full-article-content img {
@@ -32,11 +35,13 @@
 
 .loading {
     text-align: center;
-    color: #666;
+    color: var(--text-sub);
     font-style: italic;
     padding: 20px;
 }
-.source{
-    margin-top:40px;
-    font-style:italic;
+
+.source {
+    margin-top: 40px;
+    font-style: italic;
+    color: var(--text-sub);
 }

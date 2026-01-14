@@ -1,5 +1,7 @@
 footer {
-    color: #444;
+    background: var(--bg-body);
+    padding: 30px 0;
+    color: var(--text-sub);
 }
 
 .footer-container {
@@ -12,43 +14,45 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 10px;
+    list-style: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+}
+
+.footer__top-items a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    line-height: 2.5;
+    transition: all 0.3s ease;
+}
+
+.footer__top-items a:hover {
+    color: var(--accent);
+    padding-left: 8px;
+    text-decoration: underline;
 }
 
 .footer__bottom {
     display: flex;
     justify-content: space-between;
     gap: 30px;
-}
-
-footer {
-    background: #f5f5f5;
-    padding: 30px 0;
-}
-
-
-.footer__top-list {
-    list-style: none;
-    border-bottom: 1px solid #d0dcea;
-    padding-bottom: 30px;
-}
-
-.footer__top-items a {
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    line-height: 2.5;
-}
-
-.footer-col h4 {
-    background: #ececec;
-    color: #333;
-    font-size: 13px;
-    border-radius: 4px;
+    margin-top: 30px;
 }
 
 .footer-col {
     flex: 1;
     min-width: 280px;
+}
+
+.footer-col h4 {
+    background: var(--bg-btn);
+    color: var(--text-main);
+    font-size: 13px;
+    border-radius: 4px;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+    display: inline-block;
 }
 
 .footer-col p {
@@ -57,37 +61,20 @@ footer {
 }
 
 .footer-col b {
-    color: #2d67ad;
+    color: var(--accent);
     font-weight: 600;
-}
-
-.footer-col h4 {
-    padding: 5px 15px;
-    margin-bottom: 15px;
-    display: inline-block;
-}
-
-
-.footer__top-items a {
-    transition: all 0.3s ease;
-}
-
-.footer__top-items a:hover {
-    color: #2d67ad;
-    padding-left: 8px;
-    text-decoration: underline;
 }
 
 .footer-links a {
     text-decoration: none;
-    color: #2d67ad;
+    color: var(--accent);
     font-weight: bold;
     border: 1px solid transparent;
     transition: 0.2s;
 }
 
 .footer-links a:hover {
-    background: #2d67ad;
+    background: var(--accent);
     color: #fff;
     border-radius: 3px;
 }

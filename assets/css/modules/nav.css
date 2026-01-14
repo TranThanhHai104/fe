@@ -1,9 +1,11 @@
 #nav-id {
     position: sticky;
     top: 0;
-    background: white;
-    border-bottom: 1px solid black;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
 }
+
 .nav-list {
     display: flex;
     justify-content: space-between;
@@ -11,16 +13,19 @@
     padding: 0;
     list-style: none;
 }
+
 .nav-list li {
     flex: 1;
     text-align: center;
 }
+
 .nav-list li a {
     display: block;
     padding: 10px 0;
     text-decoration: none;
-    color: black;
+    color: var(--text-main);
 }
+
 .nav-list li a:hover {
-    background: lightgray;
+    background: var(--bg-btn);
 }

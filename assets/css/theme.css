@@ -1,0 +1,31 @@
+:root {
+    --bg-body: #f2f2f2;
+    --bg-box: #ffffff;
+    --bg-header: #ffffff;
+    --bg-btn: #ececec;
+    --text-main: #222222;
+    --text-sub: #777777;
+    --border-color: #dddddd;
+    --border-item: #e0e0e0;
+    --accent: #c40000;
+    --input-bg: #ffffff;
+}
+
+body.dark-mode {
+    --bg-body: #121212;
+    --bg-box: #1e1e1e;
+    --bg-header: #1f1f1f;
+    --bg-btn: #333333;
+    --text-main: #e0e0e0;
+    --text-sub: #888888;
+    --border-color: #333333;
+    --border-item: #2d2d2d;
+    --accent: #ff4d4d;
+    --input-bg: #2a2a2a;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+}

@@ -1,63 +1,107 @@
-body {
-    background-color: #eaeaea;
-}
-
 .auth-box {
-    width: 500px;
-    background: #ccc;
-    padding: 15px;
+    width: 450px;
+    background: lightgray;
+    padding: 30px;
     text-align: center;
-    position: relative;
-    margin: 100px auto;
-}
-
-.auth-box {
     position: fixed;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid black;
+    z-index: 9999;
 }
 
+.btn-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-sub);
+    transition: color 0.2s;
+    border: 1px solid black;
+}
+
+.btn-close:hover {
+    color: var(--accent);
+}
+
+.tabs {
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-item);
+    padding-bottom: 15px;
+}
 
 .tabs a {
-    padding: 6px 10px;
-    background: #ddd;
-    border: 1px solid #aaa;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--border-color);
     text-decoration: none;
     color: black;
+    margin: 0 5px;
+    display: inline-block;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid black;
 }
 
 .tabs a:hover {
-    background: #ccc;
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
 }
-
 
 .form {
     display: none;
-    margin-top: 10px;
+    animation: fadeIn 0.3s ease;
 }
 
 input {
-    width: 95%;
-    padding: 8px;
-    border: 1px solid #aaa;
-}
-
-button {
     width: 100%;
-    padding: 8px;
-    background: blue;
-    color: white;
-    border: none;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid var(--border-item);
+    background: white;
+    color: var(--text-main);
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid black;
 }
 
-button:hover {
-    background: darkblue;
+input:focus {
+    border-color: var(--accent);
+    border: 1px solid black;
 }
-input {
-    margin-bottom: 8px;
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border: 1px solid black;
 }
-.tabs a {
-    margin: 3px;
-    display: inline-block;
+h2{
+    color: black
+}
+form button:hover {
+    filter: brightness(1.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
