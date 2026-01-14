@@ -77,4 +77,4 @@ app.get("/api/crawl", async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("🚀 Server Crawler (Fix BAT) đang chạy tại http://localhost:3000"));
+app.listen(3000, () => console.log("Server Crawle đang chạy cổng 3000"));

@@ -10,7 +10,11 @@ export function renderNav(feeds) {
 
     feeds.forEach(feed => {
         const li = document.createElement("li");
-        li.innerHTML = `<a href="#${feed.nid}"> ${feed.title}</a>`;
+
+        const categoryLink = `category.html?rss=${encodeURIComponent(feed.url)}&title=${encodeURIComponent(feed.title)}`;
+
+        li.innerHTML = `<a href="${categoryLink}">${feed.title}</a>`;
+
         if (lastLi) {
             navList.insertBefore(li, lastLi);
         } else {
