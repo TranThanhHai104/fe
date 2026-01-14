@@ -1,18 +1,42 @@
-function openAuth() {
+window.openAuth = function() {
     fetch("templates/auth-modal.html")
-        .then(res => res.text())
+        .then(res => {
+            if (!res.ok) throw new Error();
+            return res.text();
+        })
         .then(data => {
-            document.getElementById("auth-container").innerHTML = data;
+            const container = document.getElementById("auth-container");
+            if (container) {
+                container.innerHTML = data;
+                setTimeout(() => {
+                    window.showForm("login");
+                }, 10);
+            }
+        })
+        .catch(err => console.error(err));
+};
 
-            showForm("login");
-        });
-}
+window.closeAuth = function() {
+    const container = document.getElementById("auth-container");
+    if (container) container.innerHTML = "";
+};
 
+window.showForm = function(id) {
+    const forms = ["login", "register", "forgot"];
+    forms.forEach(f => {
+        const el = document.getElementById(f);
+        if (el) el.style.display = "none";
+    });
+    const target = document.getElementById(id);
+    if (target) target.style.display = "block";
+};
 
-function showForm(id) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("register").style.display = "none";
-    document.getElementById("forgot").style.display = "none";
+document.addEventListener("click", function(e) {
+    if (e.target.closest("#btn-login")) {
+        window.openAuth();
+    }
+});
 
-    document.getElementById(id).style.display = "block";
-}
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") window.closeAuth();
+});
