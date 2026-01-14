@@ -1,13 +1,45 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên mục tin tức</title>
+    <link rel="stylesheet" href="assets/css/category.css">
+    <link rel="stylesheet" href="assets/css/modules/footer.css">
+    <link rel="stylesheet" href="assets/css/modules/header.css">
+    <link rel="stylesheet" href="assets/css/modules/auth-modal.css">
+    <link rel="stylesheet" href="assets/css/modules/nav.css">
 </head>
 <body>
 
+<header id="header-id"></header>
+<nav id="nav-id"></nav>
+
+<main class="main-content">
+    <div class="container">
+
+        <div class="category-box">
+            <div class="category-header">
+                <h1 id="category-title">Đang tải chuyên mục...</h1>
+                <div class="line"></div>
+            </div>
+
+            <ul id="news-grid" class="news-grid"></ul>
+
+            <div id="loader" class="loader">
+                <div class="spinner"></div>
+                <p>Đang lấy tin mới nhất...</p>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer id="footer-id"></footer>
+
+<script src="assets/js/templates.js"></script>
+<script type="module" src="assets/js/main.js"></script>
+<script src="assets/js/modules/auth-modal.js"></script>
+<script src="assets/js/category.js"></script>
 </body>
 </html>
