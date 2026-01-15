@@ -4,26 +4,62 @@
     color: var(--text-main);
 }
 
+.audio-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--bg-box);
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    margin: 15px 0;
+}
+
+.audio-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.audio-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-audio {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: #e11b22;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.btn-audio:hover {
+    transform: scale(1.1);
+}
+
+.audio-select {
+    padding: 5px;
+    border-radius: 5px;
+    background: var(--input-bg);
+    color: var(--text-main);
+}
+
 .thumb {
     width: 100%;
     margin: 15px 0;
     border-radius: 8px;
-    background: var(--input-bg);
-}
-
-.date {
-    color: var(--text-sub);
-    font-size: 14px;
-}
-
-.content img {
-    max-width: 100%;
 }
 
 .full-article-content {
     line-height: 1.8;
     font-size: 1.1rem;
-    color: var(--text-main);
 }
 
 .full-article-content img {
@@ -33,38 +69,9 @@
     margin: 20px 0;
 }
 
-.loading {
-    text-align: center;
-    color: var(--text-sub);
-    font-style: italic;
-    padding: 20px;
-}
-
-.source {
-    margin-top: 40px;
-    font-style: italic;
-    color: var(--text-sub);
-}
-
-/* CSS cho phần cmt */
 .comment-section {
     margin-top: 50px;
     padding: 30px;
-    background: lightgray;
-    border: 1px solid black;
-    text-align: center;
-
-}
-
-.comment-title {
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-    color: black;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-#cusdis_thread {
-    min-height: 200px;
-    text-align: left;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
 }

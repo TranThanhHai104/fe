@@ -11,24 +11,8 @@ export const vietnamnetFeeds = [
     { nid: "qs", title: "Quân sự", url: "https://infonet.vietnamnet.vn/rss/quan-su.rss" }
 ];
 
-includeHTML('header-id', 'templates/header.html', function () {
-    const loginBtn = document.getElementById("btn-login");
-    if (loginBtn) {
-        loginBtn.onclick = function() {
-            if (typeof openAuth === "function") openAuth();
-        };
-    }
-});
-
-includeHTML('footer-id', 'templates/footer.html');
-
-includeHTML('nav-id', 'templates/nav.html', function () {
-    renderNav(vietnamnetFeeds);
-});
-
 function formatDate(dateString) {
-    const d = new Date(dateString);
-    return d.toLocaleString('vi-VN');
+    return new Date(dateString).toLocaleString('vi-VN');
 }
 
 function getThumb(item) {
@@ -50,18 +34,22 @@ function createItemHtml(item, rssUrl, index) {
         <li class="news-item">
             <a href="${detailLink}">
                 <div class="thumb-container">
-                    <img src="${thumb}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x250?text=Error'">
+                    <img src="${thumb}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x250?text=Error'">
                 </div>
                 <div class="news-info">
                     <h3>${item.title}</h3>
                     <p class="date">${pubDate}</p>
                 </div>
             </a>
-        </li>
-    `;
+        </li>`;
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
+    // Render Nav sau khi templates.js load xong khung (khoảng 500ms)
+    setTimeout(() => {
+        renderNav(vietnamnetFeeds);
+    }, 500);
+
     const mainContainer = document.getElementById("news-container");
     if (!mainContainer) return;
 
@@ -70,8 +58,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <h2 class="category-title">Tin mới nhất</h2>
             <ul id="news-grid" class="news-grid"></ul>
             <div id="home-loader" class="loader">Đang tải tin...</div>
-        </div>
-    `;
+        </div>`;
 
     const grid = document.getElementById("news-grid");
     const loader = document.getElementById("home-loader");
@@ -79,21 +66,21 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         const requests = vietnamnetFeeds.map(feed => {
-            const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
-            return fetch(api).then(res => res.json()).then(data => {
-                if (data.status === "ok" && data.items) {
-                    data.items.forEach((item, idx) => {
-                        allItems.push({ ...item, _rssUrl: feed.url, _index: idx });
-                    });
-                }
-            });
+            return fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "ok" && data.items) {
+                        data.items.forEach((item, idx) => {
+                            allItems.push({ ...item, _rssUrl: feed.url, _index: idx });
+                        });
+                    }
+                });
         });
         await Promise.all(requests);
         allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
         if (loader) loader.style.display = "none";
         allItems.slice(0, 12).forEach(item => {
-            const html = createItemHtml(item, item._rssUrl, item._index);
-            grid.insertAdjacentHTML("beforeend", html);
+            grid.insertAdjacentHTML("beforeend", createItemHtml(item, item._rssUrl, item._index));
         });
     } catch (err) {
         if (loader) loader.innerText = "Lỗi kết nối dữ liệu.";

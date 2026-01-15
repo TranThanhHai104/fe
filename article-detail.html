@@ -2,10 +2,11 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết bài viết</title>
-    <link rel="stylesheet" href="assets/css/article-detail.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/article-detail.css">
     <link rel="stylesheet" href="assets/css/modules/footer.css">
     <link rel="stylesheet" href="assets/css/modules/header.css">
     <link rel="stylesheet" href="assets/css/modules/auth-modal.css">
@@ -18,14 +19,26 @@
 
 <div class="article-container">
     <h1 id="title">Đang tải...</h1>
+    <div class="audio-control">
+        <span class="audio-label"><i class="fas fa-headphones"></i> Nghe đọc tin:</span>
+        <div class="audio-btns">
+            <button id="btn-play" class="btn-audio"><i class="fas fa-play"></i></button>
+            <button id="btn-pause" class="btn-audio" style="display:none;"><i class="fas fa-pause"></i></button>
+            <button id="btn-resume" class="btn-audio" style="display:none;"><i class="fas fa-play-circle"></i></button>
+            <button id="btn-stop" class="btn-audio" style="display:none;"><i class="fas fa-stop"></i></button>
+            <select id="audio-speed" class="audio-select">
+                <option value="0.8">Chậm</option>
+                <option value="1.0" selected>Bình thường</option>
+                <option value="1.2">Nhanh</option>
+                <option value="1.5">Rất nhanh</option>
+            </select>
+        </div>
+    </div>
+    <audio id="tts-audio" style="display:none;"></audio>
     <p class="date" id="date"></p>
-    <img id="image" class="thumb" src="">
+    <img id="image" class="thumb" src="" style="display:none;">
     <div id="content" class="content"></div>
-
-    <p class="source">
-        Nguồn: <a id="sourceLink" target="_blank" href="#">Xem bài viết gốc tại Vietnamnet</a>
-    </p>
-
+    <p class="source">Nguồn: <a id="sourceLink" target="_blank" href="#">Xem bài viết gốc</a></p>
     <div class="comment-section">
         <h3 class="comment-title">Bình luận</h3>
         <div id="cusdis_thread"
@@ -40,9 +53,9 @@
 </div>
 
 <div id="footer-id"></div>
+
 <script src="assets/js/templates.js"></script>
-<script type="module" src="assets/js/main.js"></script>
-<script src="assets/js/modules/auth-modal.js"></script>
-<script src="assets/js/article-detail.js"></script>
+<script type="module" src="assets/js/article-detail.js"></script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body>
 </html>
