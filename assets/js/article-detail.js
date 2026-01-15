@@ -3,61 +3,63 @@ var rssUrl = params.get("rss");
 var index = params.get("id");
 
 if (!rssUrl || index === null) {
-    document.body.innerHTML = "<div style='text-align:center; padding: 50px;'><h2>⚠️ Lỗi: Thiếu tham số bài viết.</h2><a href='index.html'>Quay lại trang chủ</a></div>";
+    document.body.innerHTML = "<div style='text-align:center; padding: 50px;'><h2>⚠️ Lỗi: Thiếu bài viết.</h2></div>";
 } else {
-    document.getElementById("content").innerHTML = "<p class='loading'>🔄 Đang tải nội dung bài viết...</p>";
+    document.getElementById("content").innerHTML = "<p class='loading'>🔄 Đang tải nội dung...</p>";
 
-    var rssApi = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
-
-    fetch(rssApi)
+    fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl))
         .then(res => res.json())
         .then(data => {
             var item = data.items[index];
-            if (!item) throw new Error("Không tìm thấy bài viết trong danh sách RSS");
+            if (!item) throw new Error("Không tìm thấy bài viết");
 
+            // 1. Hiển thị bài viết
             document.getElementById("title").innerText = item.title;
             document.getElementById("date").innerText = "📅 " + new Date(item.pubDate).toLocaleString('vi-VN');
             document.getElementById("sourceLink").href = item.link;
-
-            if (item.enclosure && item.enclosure.link) {
+            if (item.enclosure?.link) {
                 document.getElementById("image").src = item.enclosure.link;
                 document.getElementById("image").style.display = "block";
-            } else {
-                document.getElementById("image").style.display = "none";
             }
 
-            const crawlApi = `http://localhost:3000/api/crawl?url=${encodeURIComponent(item.link)}`;
+            // 2. Kích hoạt và Hiện bình luận cũ
+            const cusdisThread = document.getElementById('cusdis_thread');
+            if (cusdisThread) {
+                // Tạo ID bài viết CỐ ĐỊNH (Không dùng btoa để tránh lỗi ký tự)
+                const safeId = encodeURIComponent(rssUrl).substring(0, 30) + "_" + index;
 
-            return fetch(crawlApi);
+                cusdisThread.setAttribute('data-page-id', safeId);
+                cusdisThread.setAttribute('data-page-url', window.location.href);
+                cusdisThread.setAttribute('data-page-title', item.title);
+
+                // Nạp script Cusdis sau khi đã gán xong ID
+                if (!document.getElementById('cusdis-script')) {
+                    const script = document.createElement('script');
+                    script.id = 'cusdis-script';
+                    script.src = 'https://cusdis.com/js/cusdis.es.js';
+                    script.async = true;
+                    script.onload = () => {
+                        if (window.renderCusdis) window.renderCusdis(cusdisThread);
+                    };
+                    document.body.appendChild(script);
+                } else if (window.renderCusdis) {
+                    window.renderCusdis(cusdisThread);
+                }
+            }
+
+            // 3. Fetch nội dung chi tiết
+            return fetch(`http://localhost:3000/api/crawl?url=${encodeURIComponent(item.link)}`);
         })
         .then(res => res.json())
         .then(result => {
             const contentDiv = document.getElementById("content");
-
-            if (result && result.success === true) {
-                contentDiv.innerHTML = `
-                    <div class="full-article-content">
-                        ${result.content}
-                    </div>
-                `;
+            if (result?.success) {
+                contentDiv.innerHTML = `<div class="full-article-content">${result.content}</div>`;
             } else {
-                contentDiv.innerHTML = `
-                    <div class="error-msg" style="padding: 20px; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px;">
-                        <p style="color: #c53030; font-weight: bold;">❌ Không thể lấy nội dung chi tiết.</p>
-                        <p>Lý do: ${result.error || "Cơ chế chặn bot hoặc cấu trúc bài báo lạ"}</p>
-                        <a href="${document.getElementById("sourceLink").href}" target="_blank" class="read-more-btn" style="color: #3182ce; text-decoration: underline;">Đọc bài gốc tại VietnamNet</a>
-                    </div>
-                `;
+                contentDiv.innerHTML = `<p>Lỗi: ${result.error}</p>`;
             }
         })
         .catch(err => {
-            document.getElementById("content").innerHTML = `
-                <div style="text-align:center; padding: 20px; border: 2px dashed #cbd5e0;">
-                    <p>🔌 <b>Lỗi kết nối:</b> ${err.message}</p>
-                    <p>Hãy đảm bảo bạn đã chạy lệnh <code>node server.js</code></p>
-                    <button onclick="window.location.reload()" style="padding: 8px 16px; margin-top:10px; cursor: pointer;">Thử lại</button>
-                </div>
-            `;
-            console.error("Error detail:", err);
+            console.error(err);
         });
 }

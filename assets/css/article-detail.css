@@ -45,3 +45,26 @@
     font-style: italic;
     color: var(--text-sub);
 }
+
+/* CSS cho phần cmt */
+.comment-section {
+    margin-top: 50px;
+    padding: 30px;
+    background: lightgray;
+    border: 1px solid black;
+    text-align: center;
+
+}
+
+.comment-title {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#cusdis_thread {
+    min-height: 200px;
+    text-align: left;
+}

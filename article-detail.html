@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Chi tiết bài viết</title>
     <link rel="stylesheet" href="assets/css/article-detail.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/modules/footer.css">
     <link rel="stylesheet" href="assets/css/modules/header.css">
     <link rel="stylesheet" href="assets/css/modules/auth-modal.css">
@@ -13,7 +14,6 @@
 <body>
 <div id="header-id"></div>
 <div id="nav-id"></div>
-
 <div id="auth-container"></div>
 
 <div class="article-container">
@@ -25,13 +25,24 @@
     <p class="source">
         Nguồn: <a id="sourceLink" target="_blank" href="#">Xem bài viết gốc tại Vietnamnet</a>
     </p>
+
+    <div class="comment-section">
+        <h3 class="comment-title">Bình luận</h3>
+        <div id="cusdis_thread"
+             data-host="https://cusdis.com"
+             data-app-id="f68ebfaa-f945-4437-b2f1-aa7be62b55c1"
+             data-page-id=""
+             data-page-url=""
+             data-page-title=""
+             data-lang="vi">
+        </div>
+    </div>
 </div>
+
 <div id="footer-id"></div>
 <script src="assets/js/templates.js"></script>
 <script type="module" src="assets/js/main.js"></script>
-
 <script src="assets/js/modules/auth-modal.js"></script>
-
 <script src="assets/js/article-detail.js"></script>
 </body>
 </html>
