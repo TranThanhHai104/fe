@@ -16,8 +16,9 @@ body {
     margin: 0;
     padding: 0;
     background: var(--bg-body);
+    color: var(--text-main);
     font-family: Arial, sans-serif;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .vnn-header {
@@ -40,6 +41,61 @@ body {
     align-items: center;
 }
 
+.search-box {
+    display: flex;
+    align-items: center;
+    background: var(--bg-btn);
+    border-radius: 20px;
+    padding: 0 12px;
+    height: 32px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.search-box:focus-within {
+    background: var(--bg-header);
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+#search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 5px 0;
+    font-size: 13px;
+    color: var(--text-main);
+    width: 130px;
+    transition: width 0.3s ease;
+    margin-top: 15px;
+}
+
+#search-input:focus {
+    width: 180px;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 8px;
+    color: var(--text-main);
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.search-btn:hover {
+    opacity: 1;
+}
+
+.search-btn svg {
+    stroke: var(--text-main);
+}
+
 .vnn__login-btn {
     background: var(--bg-btn);
     padding: 6px 14px;
@@ -59,52 +115,15 @@ body {
 .theme-btn {
     background: var(--bg-btn);
     border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-
-/* Giữ logo không bị đổi màu quá mức hoặc thêm filter nếu cần */
-body.dark-mode .header__logo img {
-    filter: brightness(0.9);
-}:root {
-     --bg-body: #eaeaea;
-     --bg-header: #ffffff;
-     --text-main: #444;
-     --bg-btn: #ececec;
- }
-
-body.dark-mode {
-    --bg-body: #121212;
-    --bg-header: #1f1f1f;
-    --text-main: #e0e0e0;
-    --bg-btn: #333;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg-body);
-    color: var(--text-main);
-    font-family: Arial, sans-serif;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-
-.theme-btn {
-    background: var(--bg-btn);
-    border: none;
     width: 60px;
     height: 32px;
     border-radius: 16px;
     cursor: pointer;
     font-size: 13px;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 body.dark-mode .header__logo img {
