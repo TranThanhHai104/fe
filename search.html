@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kết quả tìm kiếm - VietNamNet</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="assets/css/searh.css">
+    <link rel="stylesheet" href="assets/css/modules/footer.css">
+    <link rel="stylesheet" href="assets/css/modules/header.css">
+    <link rel="stylesheet" href="assets/css/modules/auth-modal.css">
+    <link rel="stylesheet" href="assets/css/modules/nav.css">
+</head>
+<body>
+
+<div id="header-id"></div>
+<div id="nav-id"></div>
+<div id="auth-container"></div>
+
+<main class="container">
+
+    <div class="search-results-wrapper">
+        <p class="search-info">
+            Tìm thấy (<span id="count-results">0</span>) kết quả cho: "<b id="keyword-display"></b>"
+        </p>
+        <div id="home-loader" class="loader">Đang lục tìm dữ liệu...</div>
+        <div id="list-articles" class="articles-list">
+        </div>
+    </div>
+</main>
+
+<div id="footer-id"></div>
+
+<script src="assets/js/templates.js"></script>
+<script type="module" src="assets/js/main.js"></script>
+<script src="assets/js/modules/auth-modal.js"></script>
+<script type="module" src="assets/js/search.js"></script>
+
+</body>
+</html>

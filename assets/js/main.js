@@ -1,6 +1,6 @@
 import { renderNav } from "./modules/nav.js";
 
-const vietnamnetFeeds = [
+export const vietnamnetFeeds = [
     { nid: "ds", title: "Đời sống", url: "https://infonet.vietnamnet.vn/rss/doi-song.rss" },
     { nid: "tt", title: "Thị trường", url: "https://infonet.vietnamnet.vn/rss/thi-truong.rss" },
     { nid: "tg", title: "Thế giới", url: "https://infonet.vietnamnet.vn/rss/the-gioi.rss" },
@@ -12,9 +12,16 @@ const vietnamnetFeeds = [
 ];
 
 includeHTML('header-id', 'templates/header.html', function () {
-    document.getElementById("btn-login")?.addEventListener("click", openAuth);
+    const loginBtn = document.getElementById("btn-login");
+    if (loginBtn) {
+        loginBtn.onclick = function() {
+            if (typeof openAuth === "function") openAuth();
+        };
+    }
 });
+
 includeHTML('footer-id', 'templates/footer.html');
+
 includeHTML('nav-id', 'templates/nav.html', function () {
     renderNav(vietnamnetFeeds);
 });
@@ -26,14 +33,12 @@ function formatDate(dateString) {
 
 function getThumb(item) {
     let thumb = 'https://via.placeholder.com/400x250?text=No+Image';
-
     if (item.enclosure?.link) thumb = item.enclosure.link;
     else if (item.thumbnail) thumb = item.thumbnail;
     else if (item.description && item.description.includes("<img")) {
         const m = item.description.match(/<img[^>]+src="([^">]+)"/);
         if (m && m[1]) thumb = m[1];
     }
-
     return thumb;
 }
 
@@ -41,15 +46,11 @@ function createItemHtml(item, rssUrl, index) {
     const pubDate = formatDate(item.pubDate);
     const detailLink = `article-detail.html?rss=${encodeURIComponent(rssUrl)}&id=${index}`;
     const thumb = getThumb(item);
-
     return `
         <li class="news-item">
             <a href="${detailLink}">
                 <div class="thumb-container">
-                    <img src="${thumb}"
-                         alt="${item.title}"
-                         loading="lazy"
-                         onerror="this.onerror=null;this.src='https://via.placeholder.com/400x250?text=Error+Loading'">
+                    <img src="${thumb}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x250?text=Error'">
                 </div>
                 <div class="news-info">
                     <h3>${item.title}</h3>
@@ -59,33 +60,10 @@ function createItemHtml(item, rssUrl, index) {
         </li>
     `;
 }
-document.addEventListener("DOMContentLoaded", function () {
-    const authBox = document.getElementById("authBox");
-    const btnClose = document.getElementById("btnClose");
 
-    if (btnClose && authBox) {
-        btnClose.onclick = function (e) {
-            e.preventDefault();
-            authBox.style.display = "none";
-        };
-    }
-
-    const tabs = document.querySelectorAll(".tabs a");
-    tabs.forEach(tab => {
-        tab.onclick = function (e) {
-            e.preventDefault();
-            tabs.forEach(t => t.classList.remove("active"));
-            this.classList.add("active");
-        };
-    });
-});
 document.addEventListener("DOMContentLoaded", async function () {
     const mainContainer = document.getElementById("news-container");
-
-    if (!mainContainer) {
-        console.error("Không tìm thấy #news-container");
-        return;
-    }
+    if (!mainContainer) return;
 
     mainContainer.innerHTML = `
         <div class="category-box">
@@ -97,40 +75,27 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const grid = document.getElementById("news-grid");
     const loader = document.getElementById("home-loader");
-
     let allItems = [];
 
     try {
         const requests = vietnamnetFeeds.map(feed => {
-            const api = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
-            return fetch(api)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === "ok" && data.items) {
-                        data.items.forEach((item, idx) => {
-                            allItems.push({
-                                ...item,
-                                _rssUrl: feed.url,
-                                _index: idx
-                            });
-                        });
-                    }
-                });
+            const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+            return fetch(api).then(res => res.json()).then(data => {
+                if (data.status === "ok" && data.items) {
+                    data.items.forEach((item, idx) => {
+                        allItems.push({ ...item, _rssUrl: feed.url, _index: idx });
+                    });
+                }
+            });
         });
-
         await Promise.all(requests);
-
         allItems.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-
-        loader.style.display = "none";
-
+        if (loader) loader.style.display = "none";
         allItems.slice(0, 12).forEach(item => {
             const html = createItemHtml(item, item._rssUrl, item._index);
             grid.insertAdjacentHTML("beforeend", html);
         });
-
     } catch (err) {
-        console.error(err);
-        loader.innerText = "Lỗi tải dữ liệu.";
+        if (loader) loader.innerText = "Lỗi kết nối dữ liệu.";
     }
 });

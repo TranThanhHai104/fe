@@ -2,13 +2,23 @@
     <div class="container header-simple">
         <div class="header-left">
             <h1 class="header__logo">
-                <a href="/" title="vietnamnet">
+                <a href="/fe/index.html" title="vietnamnet">
                     <img width="140" src="https://static.vnncdn.net/v1/logo/logoVietnamNet.svg" alt="VietNamNet">
                 </a>
             </h1>
         </div>
 
         <div class="header-right" style="display:flex;align-items:center;gap:10px;">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm...">
+                <button class="search-btn" id="search-submit">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+
             <button id="theme-toggle" class="theme-btn">
                 <span id="theme-icon">Tối</span>
             </button>
